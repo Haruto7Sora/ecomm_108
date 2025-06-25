@@ -28,9 +28,10 @@
 			$sql = "INSERT INTO item VALUES(?, ?, ?, ?, ?, ?, ?)";
 			$stmt = $conn->prepare($sql);
 			$status = $stmt->execute([null, $itemName, $price, $description, $quantity, $filePath, $category]);
+			$lastId = $conn->lastInsertId();
 
 			if($status) {
-				$_SESSION['insertSuccess'] = 'Item has been inserted successfully.'; // key value pair
+				$_SESSION['insertSuccess'] = "Item with ID $lastId has been inserted successfully."; // key value pair
 				header('Location:viewItem.php'); // destination to go
 			}
 		}
@@ -48,9 +49,12 @@
     </head>
     <body class="bg-light">
         <div class="container-fluid">
+			<div class="row">
+				<?php require_once 'navbar.php' ?>
+			</div>
             <div class="row">
                 <div class="col-md-3">Column 3</div>
-                <div class="col-md-9">
+                <div class="col-md-9 mx-auto">
                     <form class="form mt-2 pt-2" enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <fieldset>
                             <legend>Insert Item</legend>
