@@ -137,6 +137,9 @@
                     </form>
                 </div>
                 <div class="col-md-10 mx-auto py-5">
+                    <div class="py-2">
+                        <a class="btn btn-primary" href="insertItem.php">Add New Item</a>
+                    </div>
                     <?php
                         if(isset($_SESSION["insertSuccess"])) {
                             echo "<p class='alert alert-success'>$_SESSION[insertSuccess]</p>";
