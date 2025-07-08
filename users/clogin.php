@@ -6,23 +6,23 @@
     }
 
     // checking whether login button is clicked
-    if(isset($_POST['adminLogin'])) {
-        $username = $_POST['username'];
+    if(isset($_POST['customerLogin'])) {
+        $email = $_POST['email'];
         $password = $_POST['password'];
 
         try {
-            $sql = 'SELECT username, password FROM admin WHERE username=?';
+            $sql = 'SELECT email, password FROM users WHERE email=?';
             $stmt = $conn->prepare($sql);
-            $stmt->execute([$username]);
+            $stmt->execute([$email]);
             $userInfo = $stmt->fetch();
 
             if(!$userInfo) {
                 $message = "Username or password might be incorrect!";
             } else {
                 if(password_verify($password, $userInfo["password"])) {
-                    $_SESSION['adminId'] = $username;
-                    $_SESSION['login'] = true;
-                    header("Location: viewItem.php");
+                    $_SESSION['customerEmail'] = $email;
+                    $_SESSION['clogin'] = true;
+                    header("Location: customerViewItem.php");
                 } else {
                     $message = "Username and password might be incorrect!";
                 }
@@ -63,8 +63,8 @@
                         ?>
 
                         <div class="mb-2">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email">
                         </div>
 
                         <div class="mb-2">
@@ -72,7 +72,7 @@
                             <input type="password" class="form-control" name="password">
                         </div>
 
-                        <button type="submit" class="btn btn-primary rounded-pill mt-3" name="adminLogin">Login</button>
+                        <button type="submit" class="btn btn-primary rounded-pill mt-3" name="customerLogin">Login</button>
                     </fieldset>
                 </form>
             </div>
