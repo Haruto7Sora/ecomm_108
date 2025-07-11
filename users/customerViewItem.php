@@ -161,9 +161,14 @@
                     </form>
                 </div>
                 <div class="col-md-10 mx-auto py-5">
-                    <div class="py-2">
-                        <a class="btn btn-primary" href="insertItem.php">Add New Item</a>
-                    </div>
+                    <?php if(array_key_exists('cart', $_SESSION)) { ?>
+                        <div class="py-2">
+                            <a class="btn" href="viewCart.php">
+                                <img src="../images/shopping-cart.png" alt="view cart" style="width: 30px; height: 30px;">
+                            </a>
+                        </div>
+                    <?php } ?>
+
                     <?php
                         if(isset($_SESSION["insertSuccess"])) {
                             echo "<p class='alert alert-success'>$_SESSION[insertSuccess]</p>";
@@ -227,7 +232,7 @@
 
                                                             <div>
                                                                 <a href="" class="btn btn-outline-primary rounded-pill">View Detail</a>
-                                                                <a href="" class="btn btn-outline-primary rounded-pill">Add to Cart</a>
+                                                                <a href="addCart.php?itemID=<?php echo $item['item_id']; ?>" class="btn btn-outline-primary rounded-pill">Add to Cart</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -244,4 +249,4 @@
         </div>
     </body>
 </html>
-<?php } else {header("Location: login.php");} ?>
+<?php } else {header("Location: clogin.php");} ?>
