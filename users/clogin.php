@@ -11,7 +11,7 @@
         $password = $_POST['password'];
 
         try {
-            $sql = 'SELECT email, password FROM users WHERE email=?';
+            $sql = 'SELECT * FROM users WHERE email=?';
             $stmt = $conn->prepare($sql);
             $stmt->execute([$email]);
             $userInfo = $stmt->fetch();
@@ -22,6 +22,8 @@
                 if(password_verify($password, $userInfo["password"])) {
                     $_SESSION['customerEmail'] = $email;
                     $_SESSION['clogin'] = true;
+                    $_SESSION['profile'] = $userInfo['profile_path'];
+                    $_SESSION['userId'] = $userInfo['userid'];
                     header("Location: customerViewItem.php");
                 } else {
                     $message = "Username and password might be incorrect!";
